@@ -13,9 +13,14 @@ export default defineConfig({
         react(),
         tailwindcss(),
     ],
+
     resolve: {
         alias: {
             '@': path.resolve(__dirname, 'resources/js'),
         },
     },
+
+    build: {
+        outDir: 'dist'
+    }
 });
