@@ -4,6 +4,7 @@ namespace App\Modules\CardRoom\Services;
 
 use App\Models\Patient;
 use App\Models\Visit;
+use App\Modules\OPD\Services\OpdService;
 use App\Services\AuditLogService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
@@ -13,6 +14,7 @@ class VisitService
 {
     public function __construct(
         private readonly AuditLogService $auditLogService,
+        private readonly OpdService $opdService,
     ) {}
 
     public function assignRoom(Patient $patient, int $roomId, int $userId, ?string $remarks = null): Visit
@@ -47,6 +49,11 @@ class VisitService
                 $visit->toArray(),
                 $userId,
             );
+
+            // Auto-enqueue into OPD queue if this is an OPD room
+            if (OpdService::isOpdRoom($visit->room)) {
+                $this->opdService->enqueue($visit);
+            }
 
             return $visit;
         });

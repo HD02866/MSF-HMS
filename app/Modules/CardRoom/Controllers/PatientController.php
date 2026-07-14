@@ -49,7 +49,12 @@ class PatientController extends Controller
     {
         $this->authorize('create', Patient::class);
 
-        $patient = $this->patientService->create($request->validated(), $request->user()->id);
+        // Merge the uploaded file into validated data so the service can handle it
+        $data = array_merge($request->validated(), [
+            'photo' => $request->file('photo'),
+        ]);
+
+        $patient = $this->patientService->create($data, $request->user()->id);
 
         if ($request->boolean('assign_room')) {
             return redirect()->route('visits.assign', ['patient_id' => $patient->id])
@@ -57,7 +62,7 @@ class PatientController extends Controller
         }
 
         return redirect()->route('patients.show', $patient)
-            ->with('success', 'Patient created successfully.');
+            ->with('success', 'Patient card created successfully.');
     }
 
     public function show(Patient $patient): Response
@@ -86,7 +91,11 @@ class PatientController extends Controller
     {
         $this->authorize('update', $patient);
 
-        $this->patientService->update($patient, $request->validated(), $request->user()->id);
+        $data = array_merge($request->validated(), [
+            'photo' => $request->file('photo'),
+        ]);
+
+        $this->patientService->update($patient, $data, $request->user()->id);
 
         return redirect()->route('patients.show', $patient)
             ->with('success', 'Patient updated successfully.');

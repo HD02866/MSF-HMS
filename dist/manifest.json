@@ -1,194 +1,241 @@
 {
-  "_AppLayout-B-6mMfuH.js": {
-    "file": "assets/AppLayout-B-6mMfuH.js",
+  "_AppLayout-Hqqcm5jl.js": {
+    "file": "assets/AppLayout-Hqqcm5jl.js",
     "name": "AppLayout",
     "imports": [
       "resources/js/app.tsx"
     ]
   },
-  "_FormError-cHgjx3yO.js": {
-    "file": "assets/FormError-cHgjx3yO.js",
+  "_FormError-6gHzvUSS.js": {
+    "file": "assets/FormError-6gHzvUSS.js",
     "name": "FormError",
     "imports": [
       "resources/js/app.tsx"
     ]
   },
   "resources/css/app.css": {
-    "file": "assets/app-AxuqgjLT.css",
+    "file": "assets/app-C7ikd5wR.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
   "resources/js/Pages/Auth/Login.tsx": {
-    "file": "assets/Login-8UDh6LSk.js",
+    "file": "assets/Login-C2NTK-U3.js",
     "name": "Login",
     "src": "resources/js/Pages/Auth/Login.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
-      "_AppLayout-B-6mMfuH.js"
+      "_AppLayout-Hqqcm5jl.js"
+    ]
+  },
+  "resources/js/Pages/CardOfficer/Dashboard.tsx": {
+    "file": "assets/Dashboard-ChpdoRzK.js",
+    "name": "Dashboard",
+    "src": "resources/js/Pages/CardOfficer/Dashboard.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.tsx",
+      "_AppLayout-Hqqcm5jl.js"
     ]
   },
   "resources/js/Pages/DailyRegister/Index.tsx": {
-    "file": "assets/Index-DdPf8ZwU.js",
+    "file": "assets/Index-ZfDI7XX5.js",
     "name": "Index",
     "src": "resources/js/Pages/DailyRegister/Index.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
-      "_AppLayout-B-6mMfuH.js"
+      "_AppLayout-Hqqcm5jl.js"
     ]
   },
   "resources/js/Pages/Dashboard.tsx": {
-    "file": "assets/Dashboard-C9e09FZn.js",
+    "file": "assets/Dashboard-CGmDNPa6.js",
     "name": "Dashboard",
     "src": "resources/js/Pages/Dashboard.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
-      "_AppLayout-B-6mMfuH.js"
+      "_AppLayout-Hqqcm5jl.js"
+    ]
+  },
+  "resources/js/Pages/OPD/Consultation.tsx": {
+    "file": "assets/Consultation-sMIBHKVr.js",
+    "name": "Consultation",
+    "src": "resources/js/Pages/OPD/Consultation.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.tsx",
+      "_AppLayout-Hqqcm5jl.js"
+    ]
+  },
+  "resources/js/Pages/OPD/Dashboard.tsx": {
+    "file": "assets/Dashboard-CaD3G9WU.js",
+    "name": "Dashboard",
+    "src": "resources/js/Pages/OPD/Dashboard.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.tsx",
+      "_AppLayout-Hqqcm5jl.js"
+    ]
+  },
+  "resources/js/Pages/OPD/PatientHistory.tsx": {
+    "file": "assets/PatientHistory-ChopskHw.js",
+    "name": "PatientHistory",
+    "src": "resources/js/Pages/OPD/PatientHistory.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.tsx",
+      "_AppLayout-Hqqcm5jl.js"
     ]
   },
   "resources/js/Pages/Patients/Create.tsx": {
-    "file": "assets/Create-CzKuR6eW.js",
+    "file": "assets/Create-Y-t8KgNx.js",
     "name": "Create",
     "src": "resources/js/Pages/Patients/Create.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
-      "_AppLayout-B-6mMfuH.js"
+      "_AppLayout-Hqqcm5jl.js",
+      "_FormError-6gHzvUSS.js"
     ]
   },
   "resources/js/Pages/Patients/Edit.tsx": {
-    "file": "assets/Edit-ZH0gCSJr.js",
+    "file": "assets/Edit-DNoqSq2a.js",
     "name": "Edit",
     "src": "resources/js/Pages/Patients/Edit.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
-      "_AppLayout-B-6mMfuH.js"
+      "_AppLayout-Hqqcm5jl.js",
+      "_FormError-6gHzvUSS.js"
     ]
   },
   "resources/js/Pages/Patients/Search.tsx": {
-    "file": "assets/Search-CVVZ3tYt.js",
+    "file": "assets/Search-BF7YLGlX.js",
     "name": "Search",
     "src": "resources/js/Pages/Patients/Search.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
-      "_AppLayout-B-6mMfuH.js"
+      "_AppLayout-Hqqcm5jl.js"
     ]
   },
   "resources/js/Pages/Patients/Show.tsx": {
-    "file": "assets/Show-UOjnAEEZ.js",
+    "file": "assets/Show-C2kcbS11.js",
     "name": "Show",
     "src": "resources/js/Pages/Patients/Show.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
-      "_AppLayout-B-6mMfuH.js"
+      "_AppLayout-Hqqcm5jl.js"
     ]
   },
   "resources/js/Pages/Profile/Edit.tsx": {
-    "file": "assets/Edit-DBmUXi4p.js",
+    "file": "assets/Edit-Dbk5IKHV.js",
     "name": "Edit",
     "src": "resources/js/Pages/Profile/Edit.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
-      "_AppLayout-B-6mMfuH.js"
+      "_AppLayout-Hqqcm5jl.js",
+      "_FormError-6gHzvUSS.js"
     ]
   },
   "resources/js/Pages/Recorder/Dashboard.tsx": {
-    "file": "assets/Dashboard-U-brromc.js",
+    "file": "assets/Dashboard-DbqkwhOA.js",
     "name": "Dashboard",
     "src": "resources/js/Pages/Recorder/Dashboard.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
-      "_AppLayout-B-6mMfuH.js"
+      "_AppLayout-Hqqcm5jl.js"
     ]
   },
   "resources/js/Pages/Reports/Index.tsx": {
-    "file": "assets/Index-B501GuBO.js",
+    "file": "assets/Index-DYk_6L21.js",
     "name": "Index",
     "src": "resources/js/Pages/Reports/Index.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
-      "_AppLayout-B-6mMfuH.js"
+      "_AppLayout-Hqqcm5jl.js"
     ]
   },
   "resources/js/Pages/Rooms/Index.tsx": {
-    "file": "assets/Index-CxyZncUC.js",
+    "file": "assets/Index-Bvgl__Ln.js",
     "name": "Index",
     "src": "resources/js/Pages/Rooms/Index.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
-      "_AppLayout-B-6mMfuH.js"
+      "_AppLayout-Hqqcm5jl.js"
     ]
   },
   "resources/js/Pages/Users/Create.tsx": {
-    "file": "assets/Create--BdmVW5i.js",
+    "file": "assets/Create-M5gIVWs3.js",
     "name": "Create",
     "src": "resources/js/Pages/Users/Create.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
-      "_AppLayout-B-6mMfuH.js",
-      "_FormError-cHgjx3yO.js"
+      "_AppLayout-Hqqcm5jl.js",
+      "_FormError-6gHzvUSS.js"
     ]
   },
   "resources/js/Pages/Users/Edit.tsx": {
-    "file": "assets/Edit-Ci3fK1ZM.js",
+    "file": "assets/Edit-BX950Hyc.js",
     "name": "Edit",
     "src": "resources/js/Pages/Users/Edit.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
-      "_AppLayout-B-6mMfuH.js",
-      "_FormError-cHgjx3yO.js"
+      "_AppLayout-Hqqcm5jl.js",
+      "_FormError-6gHzvUSS.js"
     ]
   },
   "resources/js/Pages/Users/Index.tsx": {
-    "file": "assets/Index-BUtfxhhJ.js",
+    "file": "assets/Index-BbYYPwaJ.js",
     "name": "Index",
     "src": "resources/js/Pages/Users/Index.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
-      "_AppLayout-B-6mMfuH.js"
+      "_AppLayout-Hqqcm5jl.js"
     ]
   },
   "resources/js/Pages/Visits/Assign.tsx": {
-    "file": "assets/Assign-BSaNd_zD.js",
+    "file": "assets/Assign-hgwsT1sz.js",
     "name": "Assign",
     "src": "resources/js/Pages/Visits/Assign.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
-      "_AppLayout-B-6mMfuH.js"
+      "_AppLayout-Hqqcm5jl.js"
     ]
   },
   "resources/js/Pages/Visits/Register.tsx": {
-    "file": "assets/Register-CfK4J8_l.js",
+    "file": "assets/Register-DAHl9osr.js",
     "name": "Register",
     "src": "resources/js/Pages/Visits/Register.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
-      "_AppLayout-B-6mMfuH.js"
+      "_AppLayout-Hqqcm5jl.js"
     ]
   },
   "resources/js/app.tsx": {
-    "file": "assets/app-MZd2mFYB.js",
+    "file": "assets/app-DgQAqnIH.js",
     "name": "app",
     "src": "resources/js/app.tsx",
     "isEntry": true,
     "dynamicImports": [
       "resources/js/Pages/Auth/Login.tsx",
+      "resources/js/Pages/CardOfficer/Dashboard.tsx",
       "resources/js/Pages/DailyRegister/Index.tsx",
       "resources/js/Pages/Dashboard.tsx",
+      "resources/js/Pages/OPD/Consultation.tsx",
+      "resources/js/Pages/OPD/Dashboard.tsx",
+      "resources/js/Pages/OPD/PatientHistory.tsx",
       "resources/js/Pages/Patients/Create.tsx",
       "resources/js/Pages/Patients/Edit.tsx",
       "resources/js/Pages/Patients/Search.tsx",
@@ -204,7 +251,7 @@
       "resources/js/Pages/Visits/Register.tsx"
     ],
     "css": [
-      "assets/app-AxuqgjLT.css"
+      "assets/app-C7ikd5wR.css"
     ]
   }
 }

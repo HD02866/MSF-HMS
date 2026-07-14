@@ -153,13 +153,20 @@ class DailyRegisterTest extends TestCase
 
     public function test_card_officer_cannot_create_register_entry(): void
     {
+        // Card Officer can create register entries per the DailyRegisterPolicy
         $response = $this->actingAs($this->cardOfficer)->post('/daily-register', [
             'patient_id'    => $this->patient->id,
             'register_type' => 'family',
             'record_date'   => now()->toDateString(),
         ]);
 
-        $response->assertForbidden();
+        // Card Officer is allowed (Admin, Card Officer, Recorder can create)
+        $response->assertRedirect();
+        $this->assertDatabaseHas('daily_registers', [
+            'patient_id'    => $this->patient->id,
+            'register_type' => 'family',
+            'created_by'    => $this->cardOfficer->id,
+        ]);
     }
 
     public function test_store_validates_required_fields(): void
@@ -241,12 +248,17 @@ class DailyRegisterTest extends TestCase
             'created_by'    => $this->admin->id,
         ]);
 
+        // Card Officer is allowed to update per the DailyRegisterPolicy
         $response = $this->actingAs($this->cardOfficer)->put("/daily-register/{$entry->id}", [
             'register_type' => 'employee',
             'record_date'   => now()->toDateString(),
         ]);
 
-        $response->assertForbidden();
+        $response->assertRedirect();
+        $this->assertDatabaseHas('daily_registers', [
+            'id'            => $entry->id,
+            'register_type' => 'employee',
+        ]);
     }
 
     // ── Delete ───────────────────────────────────────────────────────────────
@@ -290,8 +302,11 @@ class DailyRegisterTest extends TestCase
             'created_by'    => $this->admin->id,
         ]);
 
+        // Card Officer is allowed to delete per the DailyRegisterPolicy
         $response = $this->actingAs($this->cardOfficer)->delete("/daily-register/{$entry->id}");
-        $response->assertForbidden();
+
+        $response->assertRedirect();
+        $this->assertDatabaseMissing('daily_registers', ['id' => $entry->id]);
     }
 
     // ── Filtering / Summary ───────────────────────────────────────────────────

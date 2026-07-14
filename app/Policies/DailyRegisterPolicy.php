@@ -18,24 +18,24 @@ class DailyRegisterPolicy
         return $this->viewAny($user);
     }
 
-    /** Only Recorder and Admin can create / edit / delete / export */
+    /** Admin, Card Officer, and Recorder can create / edit / delete / export */
     public function create(User $user): bool
     {
-        return $user->hasRole('Admin', 'Recorder');
+        return $user->hasRole('Admin', 'Card Officer', 'Recorder');
     }
 
     public function update(User $user, DailyRegister $register): bool
     {
-        return $user->hasRole('Admin', 'Recorder');
+        return $user->hasRole('Admin', 'Card Officer', 'Recorder');
     }
 
     public function delete(User $user, DailyRegister $register): bool
     {
-        return $user->hasRole('Admin', 'Recorder');
+        return $user->hasRole('Admin', 'Card Officer', 'Recorder');
     }
 
     public function export(User $user): bool
     {
-        return $user->hasRole('Admin', 'Recorder');
+        return $user->hasRole('Admin', 'Card Officer', 'Recorder');
     }
 }

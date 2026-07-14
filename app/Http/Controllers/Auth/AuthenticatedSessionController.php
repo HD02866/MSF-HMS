@@ -40,8 +40,9 @@ class AuthenticatedSessionController extends Controller
 
         $redirectRoute = match ($roleName) {
             'Recorder'         => 'recorder.dashboard',
+            'Card Officer'     => 'card-officer.dashboard',
+            'OPD Nurse'        => 'opd.dashboard',
             'Admin'            => 'dashboard',
-            'Card Officer'     => 'dashboard',
             'Department Head'  => 'dashboard',
             'General Manager'  => 'dashboard',
             default            => 'dashboard',

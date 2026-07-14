@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
@@ -19,6 +20,7 @@ class User extends Authenticatable
         'role_id',
         'department_id',
         'phone',
+        'avatar_path',
         'is_active',
     ];
 
@@ -27,14 +29,18 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $appends = ['avatar_url'];
+
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-            'is_active' => 'boolean',
+            'password'          => 'hashed',
+            'is_active'         => 'boolean',
         ];
     }
+
+    // ── Relationships ───────────────────────────────────────────────────────
 
     public function role(): BelongsTo
     {
@@ -55,6 +61,23 @@ class User extends Authenticatable
     {
         return $this->hasMany(DailyRegister::class, 'created_by');
     }
+
+    // ── Accessors ───────────────────────────────────────────────────────────
+
+    /**
+     * Full public URL for the user avatar.
+     * Stored as a relative path: "images/avatars/avatar_xxx.jpg"
+     */
+    public function getAvatarUrlAttribute(): ?string
+    {
+        if (! $this->avatar_path) {
+            return null;
+        }
+
+        return rtrim(config('app.url'), '/').'/'.$this->avatar_path;
+    }
+
+    // ── Helpers ─────────────────────────────────────────────────────────────
 
     public function hasRole(string ...$roles): bool
     {

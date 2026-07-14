@@ -68,6 +68,8 @@ class DailyRegisterService
                 'register_type'   => $data['register_type'],
                 'record_date'     => $data['record_date'],
                 'department_name' => $data['department_name'] ?? null,
+                'referred_from'   => $data['referred_from'] ?? null,
+                'days_given'      => $data['days_given'] ?? null,
                 'created_by'      => $userId,
             ]);
 
@@ -86,6 +88,8 @@ class DailyRegisterService
                 'register_type'   => $data['register_type'],
                 'record_date'     => $data['record_date'],
                 'department_name' => $data['department_name'] ?? null,
+                'referred_from'   => $data['referred_from'] ?? null,
+                'days_given'      => $data['days_given'] ?? null,
             ]);
 
             $this->auditLogService->log('Daily Register Updated', $register, $old, $register->fresh()->toArray(), $userId);

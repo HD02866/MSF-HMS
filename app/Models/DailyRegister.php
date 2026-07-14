@@ -12,6 +12,8 @@ class DailyRegister extends Model
         'register_type',
         'record_date',
         'department_name',
+        'referred_from',
+        'days_given',
         'created_by',
     ];
 
@@ -19,10 +21,12 @@ class DailyRegister extends Model
     {
         return [
             'record_date' => 'date',
+            'days_given'  => 'integer',
         ];
     }
 
-    // Valid register types
+    // ── Register type constants ─────────────────────────────────────────────
+
     public const TYPES = [
         'family'              => 'Family',
         'employee'            => 'Employee',
@@ -31,8 +35,23 @@ class DailyRegister extends Model
         'referral_sick_leave' => 'Referral Sick Leave',
     ];
 
-    // Types that require a department field
+    // Types that require the Department field
     public const TYPES_WITH_DEPARTMENT = ['family', 'employee', 'referral_accident', 'referral_sick_leave'];
+
+    // Types that show the Referred From + Days Given fields
+    public const TYPES_WITH_REFERRAL = ['referral_accident', 'referral_sick_leave'];
+
+    // Dropdown options for "Referred From"
+    public const REFERRAL_SOURCES = [
+        'OPD 4',
+        'OPD 5',
+        'OPD 6',
+        'OPD 7',
+        'Doctor Room',
+        'Emergency',
+    ];
+
+    // ── Relationships ───────────────────────────────────────────────────────
 
     public function patient(): BelongsTo
     {
@@ -43,6 +62,8 @@ class DailyRegister extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+
+    // ── Accessors ───────────────────────────────────────────────────────────
 
     public function getTypeLabelAttribute(): string
     {

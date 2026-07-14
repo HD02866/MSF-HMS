@@ -8,6 +8,7 @@ export interface TreatmentCardPatient {
     woreda?: string | null;
     kebele?: string | null;
     house_no?: string | null;
+    photo_url?: string | null;
     visits?: Array<{
         visit_date: string;
         visit_time?: string;
@@ -202,11 +203,40 @@ function CardPageOne({
                     <div>Tel. 002 455 00 12/13</div>
                     <div>P.O.bOX 5664</div>
                 </div>
-                <div className="treatment-card-meta-block treatment-card-meta-right">
-                    <CardStackedField amharic="ቀን" english="(Date)" value={issueDate} />
-                    <CardStackedField amharic="" english="Date" value={issueDate} />
-                    <CardStackedField amharic="ካርድ ቁጥር" english="(Card No.)" value={patient.card_number} />
-                    <CardStackedField amharic="" english="Card No." value={patient.card_number} />
+                <div className="treatment-card-meta-block treatment-card-meta-right" style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                    <div>
+                        <CardStackedField amharic="ቀን" english="(Date)" value={issueDate} />
+                        <CardStackedField amharic="" english="Date" value={issueDate} />
+                        <CardStackedField amharic="ካርድ ቁጥር" english="(Card No.)" value={patient.card_number} />
+                        <CardStackedField amharic="" english="Card No." value={patient.card_number} />
+                    </div>
+                    {/* Patient photo — top right of the card */}
+                    <div
+                        style={{
+                            width: '72px',
+                            height: '88px',
+                            border: '1px solid #ccc',
+                            borderRadius: '4px',
+                            overflow: 'hidden',
+                            flexShrink: 0,
+                            background: '#f5f5f5',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}
+                    >
+                        {patient.photo_url ? (
+                            <img
+                                src={patient.photo_url}
+                                alt="Patient photo"
+                                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                            />
+                        ) : (
+                            <span style={{ fontSize: '10px', color: '#aaa', textAlign: 'center', padding: '4px' }}>
+                                Photo
+                            </span>
+                        )}
+                    </div>
                 </div>
             </div>
 

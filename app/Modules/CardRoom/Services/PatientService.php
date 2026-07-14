@@ -8,6 +8,8 @@ use App\Models\RelationshipType;
 use App\Services\AuditLogService;
 use Carbon\Carbon;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
@@ -44,15 +46,25 @@ class PatientService
 
         return DB::transaction(function () use ($data, $userId) {
             $patientType = PatientType::findOrFail($data['patient_type_id']);
-            $cardNumber = $this->generateCardNumber($data, $patientType);
+            $cardNumber  = $this->generateCardNumber($data, $patientType);
             $this->ensureUniqueCardNumber($cardNumber, $data);
 
+            // Handle optional photo upload — stored directly in public/images/patients/
+            $photoPath = null;
+            if (isset($data['photo']) && $data['photo'] instanceof UploadedFile) {
+                $filename  = uniqid('patient_', true).'.'.$data['photo']->getClientOriginalExtension();
+                $photoPath = $data['photo']->move(public_path('images/patients'), $filename)
+                    ? 'images/patients/'.$filename
+                    : null;
+            }
+
             $patient = Patient::create([
-                ...$data,
+                ...Arr::except($data, ['assign_room', 'photo', 'os_card_number']),
                 'card_number' => $cardNumber,
-                'status' => 'Active',
-                'created_by' => $userId,
-                'updated_by' => $userId,
+                'photo_path'  => $photoPath,
+                'status'      => 'Active',
+                'created_by'  => $userId,
+                'updated_by'  => $userId,
             ]);
 
             $this->auditLogService->log('Patient Created', $patient, null, $patient->toArray(), $userId);
@@ -67,9 +79,30 @@ class PatientService
 
         return DB::transaction(function () use ($patient, $data, $userId) {
             $oldValues = $patient->toArray();
-            $patient->update([...$data, 'updated_by' => $userId]);
 
-            // Single fresh() with relationships — used for both audit log and return value
+            // Handle optional photo replacement — stored directly in public/images/patients/
+            $updateFields = Arr::except($data, ['photo']);
+            if (isset($data['photo']) && $data['photo'] instanceof UploadedFile) {
+                // Delete the old file if it exists
+                if ($patient->photo_path && file_exists(public_path($patient->photo_path))) {
+                    @unlink(public_path($patient->photo_path));
+                }
+                $filename = uniqid('patient_', true).'.'.$data['photo']->getClientOriginalExtension();
+                $moved    = $data['photo']->move(public_path('images/patients'), $filename);
+                if ($moved) {
+                    $updateFields['photo_path'] = 'images/patients/'.$filename;
+                }
+            }
+
+            // Apply new card number if provided and non-empty, otherwise keep existing
+            if (! empty($updateFields['card_number'])) {
+                $updateFields['card_number'] = strtoupper(trim($updateFields['card_number']));
+            } else {
+                unset($updateFields['card_number']); // keep the existing value
+            }
+
+            $patient->update([...$updateFields, 'updated_by' => $userId]);
+
             $updated = $patient->fresh(['patientType', 'relationshipType']);
 
             $this->auditLogService->log('Patient Updated', $patient, $oldValues, $updated->toArray(), $userId);
@@ -93,7 +126,7 @@ class PatientService
     public function generateCardNumber(array $data, PatientType $patientType): string
     {
         if ($patientType->requiresEmployeeInfo()) {
-            $employeeNo = $data['employee_no'] ?? null;
+            $employeeNo  = $data['employee_no'] ?? null;
             $dependentNo = $data['dependent_no'] ?? 0;
 
             if (! $employeeNo) {
@@ -103,6 +136,12 @@ class PatientService
             }
 
             return sprintf('%s-%d', $employeeNo, $dependentNo);
+        }
+
+        // For OS and all other types: use manually entered card number if provided,
+        // otherwise fall back to auto-generated OS-XXXX
+        if (! empty($data['os_card_number'])) {
+            return strtoupper(trim($data['os_card_number']));
         }
 
         return 'OS-'.strtoupper(uniqid());

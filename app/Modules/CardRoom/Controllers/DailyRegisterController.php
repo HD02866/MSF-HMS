@@ -34,11 +34,12 @@ class DailyRegisterController extends Controller
         }
 
         return Inertia::render('DailyRegister/Index', [
-            'registers'  => $this->dailyRegisterService->list($filters),
-            'summary'    => $this->dailyRegisterService->summary($filters),
-            'types'      => DailyRegister::TYPES,
-            'filters'    => $filters,
-            'canManage'  => $request->user()->hasRole('Admin', 'Recorder'),
+            'registers'        => $this->dailyRegisterService->list($filters),
+            'summary'          => $this->dailyRegisterService->summary($filters),
+            'types'            => DailyRegister::TYPES,
+            'referral_sources' => DailyRegister::REFERRAL_SOURCES,
+            'filters'          => $filters,
+            'canManage'        => $request->user()->hasRole('Admin', 'Card Officer', 'Recorder'),
         ]);
     }
 
@@ -59,6 +60,8 @@ class DailyRegisterController extends Controller
             'register_type'   => ['required', 'string', Rule::in(array_keys(DailyRegister::TYPES))],
             'record_date'     => ['required', 'date'],
             'department_name' => ['nullable', 'string', 'max:100'],
+            'referred_from'   => ['nullable', 'string', Rule::in(DailyRegister::REFERRAL_SOURCES)],
+            'days_given'      => ['nullable', 'integer', 'min:1', 'max:365'],
         ]);
 
         $this->dailyRegisterService->update($dailyRegister, $data, $request->user()->id);

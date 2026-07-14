@@ -105,14 +105,36 @@ class UserManagementController extends Controller
 
     public function updateProfile(Request $request): RedirectResponse
     {
+        $user = $request->user();
+
         $data = $request->validate([
             'full_name' => ['required', 'string', 'max:255'],
+            'username'  => ['required', 'string', 'max:100', 'unique:users,username,'.$user->id],
             'phone'     => ['nullable', 'string', 'max:50'],
+            'avatar'    => ['nullable', 'image', 'max:2048'],
         ]);
 
-        $user = $request->user();
-        $old  = $user->toArray();
-        $user->update($data);
+        $old = $user->toArray();
+
+        $updateFields = [
+            'full_name' => $data['full_name'],
+            'username'  => $data['username'],
+            'phone'     => $data['phone'] ?? null,
+        ];
+
+        // Handle avatar upload — stored directly in public/images/avatars/
+        if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
+            // Remove old avatar
+            if ($user->avatar_path && file_exists(public_path($user->avatar_path))) {
+                @unlink(public_path($user->avatar_path));
+            }
+            $file     = $request->file('avatar');
+            $filename = 'avatar_'.$user->id.'_'.uniqid().'.'.$file->getClientOriginalExtension();
+            $file->move(public_path('images/avatars'), $filename);
+            $updateFields['avatar_path'] = 'images/avatars/'.$filename;
+        }
+
+        $user->update($updateFields);
         $this->auditLogService->log('Profile Updated', $user, $old, $user->fresh()->toArray());
 
         return back()->with('success', 'Profile updated successfully.');

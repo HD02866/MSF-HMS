@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Visit extends Model
 {
@@ -38,5 +39,10 @@ class Visit extends Model
     public function assignedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'assigned_by');
+    }
+
+    public function opdQueue(): HasOne
+    {
+        return $this->hasOne(OpdQueue::class);
     }
 }

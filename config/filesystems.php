@@ -18,6 +18,14 @@ return [
             'throw' => false,
             'report' => false,
         ],
+        // Direct public disk — no symlink needed, works on Windows
+        'patient_photos' => [
+            'driver'     => 'local',
+            'root'       => public_path('images/patients'),
+            'url'        => env('APP_URL').'/images/patients',
+            'visibility' => 'public',
+            'throw'      => true,
+        ],
     ],
     'links' => [
         public_path('storage') => storage_path('app/public'),

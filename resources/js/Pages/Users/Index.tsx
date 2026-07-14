@@ -17,6 +17,15 @@ interface Props {
     users: PaginatedUsers;
 }
 
+// Role badge colours
+const ROLE_COLORS: Record<string, string> = {
+    'Admin':            'bg-purple-100 text-purple-800',
+    'Card Officer':     'bg-green-100 text-green-800',
+    'Recorder':         'bg-blue-100 text-blue-800',
+    'Department Head':  'bg-yellow-100 text-yellow-800',
+    'General Manager':  'bg-orange-100 text-orange-800',
+};
+
 export default function UsersIndex({ users }: Props) {
     const deactivateUser = (userId: number, fullName: string) => {
         if (!window.confirm(`Deactivate ${fullName}? They will no longer be able to sign in.`)) {
@@ -54,7 +63,13 @@ export default function UsersIndex({ users }: Props) {
                             <tr key={user.id} className="border-t">
                                 <td className="px-4 py-3 font-mono">{user.username}</td>
                                 <td className="px-4 py-3">{user.full_name}</td>
-                                <td className="px-4 py-3">{user.role?.name ?? '—'}</td>
+                                <td className="px-4 py-3">
+                                    {user.role?.name ? (
+                                        <span className={`inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium ${ROLE_COLORS[user.role.name] ?? 'bg-gray-100 text-gray-700'}`}>
+                                            {user.role.name}
+                                        </span>
+                                    ) : '—'}
+                                </td>
                                 <td className="px-4 py-3">{user.department?.name ?? '—'}</td>
                                 <td className="px-4 py-3">
                                     <span className={user.is_active ? 'text-green-700' : 'text-red-600'}>
